@@ -1,0 +1,192 @@
+/* styles.css or app.css */
+@import "tailwindcss";
+
+/* ========================================
+   VARIABLES CSS PARA MIN/MAX
+   ======================================== */
+
+/* Define valor mínimo personalizado para width/height */
+@utility fluid-min-* {
+  --fluid-min: --value([*]);
+}
+
+/* Define valor máximo personalizado para width/height */
+@utility fluid-max-* {
+  --fluid-max: --value([*]);
+}
+
+/* Define valor mínimo personalizado para max-width/max-height */
+@utility fluid-max-w-min-* {
+  --fluid-max-w-min: --value([*]);
+}
+
+/* Define valor máximo personalizado para max-width/max-height */
+@utility fluid-max-w-max-* {
+  --fluid-max-w-max: --value([*]);
+}
+
+/* ========================================
+   UTILIDADES FLUID PRINCIPALES
+   ======================================== */
+
+/* 
+ * Width con fluid inteligente
+ * - Si defines --fluid-min/--fluid-max, los usa
+ * - Si no, calcula automáticamente (min: 88%, max: 120%)
+ */
+@utility w-fluid-* {
+  width: clamp(
+    var(--fluid-min, calc(--value(length) * 0.88)),
+    --value(length),
+    var(--fluid-max, calc(--value(length) * 1.2))
+  );
+}
+
+/* 
+ * Height con fluid inteligente
+ * Mismo comportamiento que w-fluid
+ */
+@utility h-fluid-* {
+  height: clamp(
+    var(--fluid-min, calc(--value(length) * 0.88)),
+    --value(length),
+    var(--fluid-max, calc(--value(length) * 1.2))
+  );
+}
+
+/* ========================================
+   UTILIDADES FLUID CON CONTAINER QUERIES
+   ======================================== */
+
+/* 
+ * Width con fluid responsive a container
+ * Se adapta según el tamaño del contenedor padre
+ * - Contenedor < 400px: más compresión (85% - 115%)
+ * - Contenedor 400px-800px: balance (90% - 130%)
+ * - Contenedor > 800px: valor fijo
+ */
+@utility w-fluid-cq-* {
+  width: clamp(
+    var(--fluid-min, calc(--value(length) * 0.85)),
+    --value(length),
+    var(--fluid-max, calc(--value(length) * 1.15))
+  );
+  
+  @container (min-width: 400px) {
+    width: clamp(
+      var(--fluid-min, calc(--value(length) * 0.9)),
+      --value(length),
+      var(--fluid-max, calc(--value(length) * 1.3))
+    );
+  }
+  
+  @container (min-width: 800px) {
+    width: var(--fluid-override, --value(length));
+  }
+}
+
+/* 
+ * Height con fluid responsive a container
+ */
+@utility h-fluid-cq-* {
+  height: clamp(
+    var(--fluid-min, calc(--value(length) * 0.85)),
+    --value(length),
+    var(--fluid-max, calc(--value(length) * 1.15))
+  );
+  
+  @container (min-width: 400px) {
+    height: clamp(
+      var(--fluid-min, calc(--value(length) * 0.9)),
+      --value(length),
+      var(--fluid-max, calc(--value(length) * 1.3))
+    );
+  }
+  
+  @container (min-width: 800px) {
+    height: var(--fluid-override, --value(length));
+  }
+}
+
+/* ========================================
+   UTILIDADES FLUID PARA MAX-WIDTH
+   ======================================== */
+
+/* 
+ * Max-width con fluid inteligente
+ * - Si defines --fluid-max-w-min/--fluid-max-w-max, los usa
+ * - Si no, calcula automáticamente (min: 88%, max: 120%)
+ */
+@utility max-w-fluid-* {
+  max-width: clamp(
+    var(--fluid-max-w-min, calc(--value(length) * 0.88)),
+    --value(length),
+    var(--fluid-max-w-max, calc(--value(length) * 1.2))
+  );
+}
+
+/* 
+ * Max-height con fluid inteligente
+ * Mismo comportamiento que max-w-fluid
+ */
+@utility max-h-fluid-* {
+  max-height: clamp(
+    var(--fluid-max-w-min, calc(--value(length) * 0.88)),
+    --value(length),
+    var(--fluid-max-w-max, calc(--value(length) * 1.2))
+  );
+}
+
+/* ========================================
+   UTILIDADES FLUID PARA MAX-WIDTH CON CONTAINER QUERIES
+   ======================================== */
+
+/* 
+ * Max-width con fluid responsive a container
+ * Se adapta según el tamaño del contenedor padre
+ * - Contenedor < 400px: más compresión (85% - 115%)
+ * - Contenedor 400px-800px: balance (90% - 130%)
+ * - Contenedor > 800px: valor fijo
+ */
+@utility max-w-fluid-cq-* {
+  max-width: clamp(
+    var(--fluid-max-w-min, calc(--value(length) * 0.85)),
+    --value(length),
+    var(--fluid-max-w-max, calc(--value(length) * 1.15))
+  );
+  
+  @container (min-width: 400px) {
+    max-width: clamp(
+      var(--fluid-max-w-min, calc(--value(length) * 0.9)),
+      --value(length),
+      var(--fluid-max-w-max, calc(--value(length) * 1.3))
+    );
+  }
+  
+  @container (min-width: 800px) {
+    max-width: var(--fluid-max-w-override, --value(length));
+  }
+}
+
+/* 
+ * Max-height con fluid responsive a container
+ */
+@utility max-h-fluid-cq-* {
+  max-height: clamp(
+    var(--fluid-max-w-min, calc(--value(length) * 0.85)),
+    --value(length),
+    var(--fluid-max-w-max, calc(--value(length) * 1.15))
+  );
+  
+  @container (min-width: 400px) {
+    max-height: clamp(
+      var(--fluid-max-w-min, calc(--value(length) * 0.9)),
+      --value(length),
+      var(--fluid-max-w-max, calc(--value(length) * 1.3))
+    );
+  }
+  
+  @container (min-width: 800px) {
+    max-height: var(--fluid-max-w-override, --value(length));
+  }
+}
