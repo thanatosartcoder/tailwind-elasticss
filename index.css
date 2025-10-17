@@ -36,9 +36,9 @@
  */
 @utility w-fluid-* {
   width: clamp(
-    var(--fluid-min, calc(--value(length) * 0.88)),
-    --value(length),
-    var(--fluid-max, calc(--value(length) * 1.2))
+    var(--fluid-min, calc(--value([*]) * 0.88)),
+    --value([*]),
+    var(--fluid-max, calc(--value([*]) * 1.2))
   );
 }
 
@@ -48,9 +48,9 @@
  */
 @utility h-fluid-* {
   height: clamp(
-    var(--fluid-min, calc(--value(length) * 0.88)),
-    --value(length),
-    var(--fluid-max, calc(--value(length) * 1.2))
+    var(--fluid-min, calc(--value([*]) * 0.88)),
+    --value([*]),
+    var(--fluid-max, calc(--value([*]) * 1.2))
   );
 }
 
@@ -67,21 +67,21 @@
  */
 @utility w-fluid-cq-* {
   width: clamp(
-    var(--fluid-min, calc(--value(length) * 0.85)),
-    --value(length),
-    var(--fluid-max, calc(--value(length) * 1.15))
+    var(--fluid-min, calc(--value([*]) * 0.85)),
+    --value([*]),
+    var(--fluid-max, calc(--value([*]) * 1.15))
   );
   
   @container (min-width: 400px) {
     width: clamp(
-      var(--fluid-min, calc(--value(length) * 0.9)),
-      --value(length),
-      var(--fluid-max, calc(--value(length) * 1.3))
+      var(--fluid-min, calc(--value([*]) * 0.9)),
+      --value([*]),
+      var(--fluid-max, calc(--value([*]) * 1.3))
     );
   }
   
   @container (min-width: 800px) {
-    width: var(--fluid-override, --value(length));
+    width: var(--fluid-override, --value([*]));
   }
 }
 
@@ -90,21 +90,21 @@
  */
 @utility h-fluid-cq-* {
   height: clamp(
-    var(--fluid-min, calc(--value(length) * 0.85)),
-    --value(length),
-    var(--fluid-max, calc(--value(length) * 1.15))
+    var(--fluid-min, calc(--value([*]) * 0.85)),
+    --value([*]),
+    var(--fluid-max, calc(--value([*]) * 1.15))
   );
   
   @container (min-width: 400px) {
     height: clamp(
-      var(--fluid-min, calc(--value(length) * 0.9)),
-      --value(length),
-      var(--fluid-max, calc(--value(length) * 1.3))
+      var(--fluid-min, calc(--value([*]) * 0.9)),
+      --value([*]),
+      var(--fluid-max, calc(--value([*]) * 1.3))
     );
   }
   
   @container (min-width: 800px) {
-    height: var(--fluid-override, --value(length));
+    height: var(--fluid-override, --value([*]));
   }
 }
 
@@ -119,9 +119,9 @@
  */
 @utility max-w-fluid-* {
   max-width: clamp(
-    var(--fluid-max-w-min, calc(--value(length) * 0.88)),
-    --value(length),
-    var(--fluid-max-w-max, calc(--value(length) * 1.2))
+    var(--fluid-max-w-min, calc(--value([*]) * 0.88)),
+    --value([*]),
+    var(--fluid-max-w-max, calc(--value([*]) * 1.2))
   );
 }
 
@@ -131,9 +131,9 @@
  */
 @utility max-h-fluid-* {
   max-height: clamp(
-    var(--fluid-max-w-min, calc(--value(length) * 0.88)),
-    --value(length),
-    var(--fluid-max-w-max, calc(--value(length) * 1.2))
+    var(--fluid-max-w-min, calc(--value([*]) * 0.88)),
+    --value([*]),
+    var(--fluid-max-w-max, calc(--value([*]) * 1.2))
   );
 }
 
@@ -150,21 +150,21 @@
  */
 @utility max-w-fluid-cq-* {
   max-width: clamp(
-    var(--fluid-max-w-min, calc(--value(length) * 0.85)),
-    --value(length),
-    var(--fluid-max-w-max, calc(--value(length) * 1.15))
+    var(--fluid-max-w-min, calc(--value([*]) * 0.85)),
+    --value([*]),
+    var(--fluid-max-w-max, calc(--value([*]) * 1.15))
   );
   
   @container (min-width: 400px) {
     max-width: clamp(
-      var(--fluid-max-w-min, calc(--value(length) * 0.9)),
-      --value(length),
-      var(--fluid-max-w-max, calc(--value(length) * 1.3))
+      var(--fluid-max-w-min, calc(--value([*]) * 0.9)),
+      --value([*]),
+      var(--fluid-max-w-max, calc(--value([*]) * 1.3))
     );
   }
   
   @container (min-width: 800px) {
-    max-width: var(--fluid-max-w-override, --value(length));
+    max-width: var(--fluid-max-w-override, --value([*]));
   }
 }
 
@@ -173,20 +173,173 @@
  */
 @utility max-h-fluid-cq-* {
   max-height: clamp(
-    var(--fluid-max-w-min, calc(--value(length) * 0.85)),
-    --value(length),
-    var(--fluid-max-w-max, calc(--value(length) * 1.15))
+    var(--fluid-max-w-min, calc(--value([*]) * 0.85)),
+    --value([*]),
+    var(--fluid-max-w-max, calc(--value([*]) * 1.15))
   );
   
   @container (min-width: 400px) {
     max-height: clamp(
-      var(--fluid-max-w-min, calc(--value(length) * 0.9)),
-      --value(length),
-      var(--fluid-max-w-max, calc(--value(length) * 1.3))
+      var(--fluid-max-w-min, calc(--value([*]) * 0.9)),
+      --value([*]),
+      var(--fluid-max-w-max, calc(--value([*]) * 1.3))
     );
   }
   
   @container (min-width: 800px) {
-    max-height: var(--fluid-max-w-override, --value(length));
+    max-height: var(--fluid-max-w-override, --value([*]));
   }
 }
+
+/* ========================================
+   EJEMPLOS DE USO
+   ======================================== */
+
+/*
+=== FLUID BÁSICO (viewport-based) ===
+
+BÁSICO (calcula automáticamente):
+<div class="w-fluid-[200px]">
+  → width: clamp(176px, 200px, 240px)
+</div>
+
+CON MIN PERSONALIZADO:
+<div class="fluid-min-[150px] w-fluid-[200px]">
+  → width: clamp(150px, 200px, 240px)
+</div>
+
+CON MAX PERSONALIZADO:
+<div class="fluid-max-[95%] w-fluid-[200px]">
+  → width: clamp(176px, 200px, 95%)
+</div>
+
+CON AMBOS PERSONALIZADOS:
+<div class="fluid-min-[100px] fluid-max-[300px] w-fluid-[200px]">
+  → width: clamp(100px, 200px, 300px)
+</div>
+
+PARA HEIGHT:
+<div class="fluid-min-[50px] h-fluid-[200px]">
+  → height: clamp(50px, 200px, 240px)
+</div>
+
+REUTILIZANDO VARIABLES EN MÚLTIPLES ELEMENTOS:
+<div class="fluid-min-[100px] fluid-max-[500px]">
+  <div class="w-fluid-[200px]">Elemento 1</div>
+  <div class="w-fluid-[300px]">Elemento 2</div>
+  <div class="w-fluid-[400px]">Elemento 3</div>
+  <!-- Todos usan min: 100px, max: 500px -->
+</div>
+
+
+=== FLUID PARA MAX-WIDTH (viewport-based) ===
+
+BÁSICO (calcula automáticamente):
+<div class="max-w-fluid-[800px]">
+  → max-width: clamp(704px, 800px, 960px)
+</div>
+
+CON MIN PERSONALIZADO:
+<div class="fluid-max-w-min-[600px] max-w-fluid-[800px]">
+  → max-width: clamp(600px, 800px, 960px)
+</div>
+
+CON MAX PERSONALIZADO:
+<div class="fluid-max-w-max-[90%] max-w-fluid-[800px]">
+  → max-width: clamp(704px, 800px, 90%)
+</div>
+
+CON AMBOS PERSONALIZADOS:
+<div class="fluid-max-w-min-[500px] fluid-max-w-max-[1200px] max-w-fluid-[800px]">
+  → max-width: clamp(500px, 800px, 1200px)
+</div>
+
+CONTENEDOR CON ANCHO Y MAX-WIDTH:
+<div class="w-fluid-[600px] max-w-fluid-[1200px]">
+  <!-- Ancho fluido con límite superior también fluido -->
+</div>
+
+
+=== FLUID CON CONTAINER QUERIES ===
+
+BÁSICO (necesitas declarar el contenedor):
+<aside class="@container">
+  <div class="w-fluid-cq-[200px]">
+    Se adapta según el ancho del contenedor padre
+  </div>
+</aside>
+
+SIDEBAR RESPONSIVE:
+<div class="@container flex">
+  <aside class="w-fluid-cq-[250px]">
+    <!-- Sidebar se adapta al contenedor, no al viewport -->
+    <nav>...</nav>
+  </aside>
+  <main class="flex-1">...</main>
+</div>
+
+CARDS EN GRID:
+<div class="@container grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+  <div class="w-fluid-cq-[280px]">
+    <!-- Cada card responde al tamaño de su celda -->
+  </div>
+</div>
+
+CON VARIABLES PERSONALIZADAS:
+<div class="@container fluid-min-[150px] fluid-max-[400px]">
+  <div class="w-fluid-cq-[250px]">
+    Respeta los límites personalizados
+  </div>
+</div>
+
+MANTENER VALOR FIJO EN CONTENEDORES GRANDES:
+<div class="@container" style="--fluid-override: 300px">
+  <div class="w-fluid-cq-[250px]">
+    En contenedores >800px usará 300px fijo
+  </div>
+</div>
+
+
+=== MAX-WIDTH CON CONTAINER QUERIES ===
+
+BÁSICO:
+<div class="@container">
+  <article class="max-w-fluid-cq-[600px]">
+    Artículo con max-width responsive al contenedor
+  </article>
+</div>
+
+CON VARIABLES PERSONALIZADAS:
+<div class="@container fluid-max-w-min-[400px] fluid-max-w-max-[900px]">
+  <div class="max-w-fluid-cq-[700px]">
+    max-width con límites personalizados
+  </div>
+</div>
+
+
+=== COMPARACIÓN ===
+
+w-fluid-*       → width fluido (viewport-based)
+w-fluid-cq-*    → width fluido (container-based)
+max-w-fluid-*   → max-width fluido (viewport-based)
+max-w-fluid-cq-* → max-width fluido (container-based)
+
+Variables independientes:
+--fluid-min / --fluid-max           → Para w-fluid-* y h-fluid-*
+--fluid-max-w-min / --fluid-max-w-max → Para max-w-fluid-* y max-h-fluid-*
+
+Usa w-fluid cuando:
+  - Necesitas un ancho fijo pero adaptable
+  - El elemento debe adaptarse al viewport
+  - No tienes un contenedor específico
+
+Usa max-w-fluid cuando:
+  - Quieres limitar el ancho máximo pero de forma fluida
+  - Perfecto para contenedores de contenido (artículos, modales)
+  - Combinado con w-full para responsividad
+
+Usa *-cq cuando:
+  - El elemento está dentro de un layout modular
+  - Necesitas que responda a su contexto local
+  - Trabajas con sidebars, grids, o componentes anidados
+*/
