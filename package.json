@@ -1,6 +1,6 @@
 {
   "name": "tailwind-elasticss",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Elastic responsive utilities for Tailwind CSS v4 with intelligent clamp() and container query support",
   "main": "./index.css",
   "exports": {
