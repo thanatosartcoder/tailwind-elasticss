@@ -25,6 +25,26 @@
   --fluid-max-w-max: --value([*]);
 }
 
+/* Define valor mínimo personalizado para font-size */
+@utility fluid-text-min-* {
+  --fluid-text-min: --value([*]);
+}
+
+/* Define valor máximo personalizado para font-size */
+@utility fluid-text-max-* {
+  --fluid-text-max: --value([*]);
+}
+
+/* Define valor mínimo personalizado para line-height */
+@utility fluid-leading-min-* {
+  --fluid-leading-min: --value([*]);
+}
+
+/* Define valor máximo personalizado para line-height */
+@utility fluid-leading-max-* {
+  --fluid-leading-max: --value([*]);
+}
+
 /* ========================================
    UTILIDADES FLUID PRINCIPALES
    ======================================== */
@@ -46,7 +66,7 @@
   );
 }
 
-/* 
+/*
  * Height con fluid inteligente
  * Mismo comportamiento que w-fluid
  */
@@ -54,11 +74,45 @@
   --fluid-base: --value([*]);
   --fluid-hmin-ratio: 0.88;
   --fluid-hmax-ratio: 1.2;
-  
+
   height: clamp(
     calc(var(--fluid-base) * var(--fluid-hmin-ratio)),
     var(--fluid-base),
     calc(var(--fluid-base) * var(--fluid-hmax-ratio))
+  );
+}
+
+/*
+ * Font-size con fluid inteligente
+ * - Si defines --fluid-text-min/--fluid-text-max, los usa
+ * - Si no, calcula automáticamente (min: 88%, max: 120%)
+ */
+@utility text-fluid-* {
+  --fluid-text-base: --value([*]);
+  --fluid-text-min-ratio: 0.88;
+  --fluid-text-max-ratio: 1.2;
+
+  font-size: clamp(
+    var(--fluid-text-min, calc(var(--fluid-text-base) * var(--fluid-text-min-ratio))),
+    var(--fluid-text-base),
+    var(--fluid-text-max, calc(var(--fluid-text-base) * var(--fluid-text-max-ratio)))
+  );
+}
+
+/*
+ * Line-height con fluid inteligente
+ * - Si defines --fluid-leading-min/--fluid-leading-max, los usa
+ * - Si no, calcula automáticamente (min: 88%, max: 120%)
+ */
+@utility leading-fluid-* {
+  --fluid-leading-base: --value([*]);
+  --fluid-leading-min-ratio: 0.88;
+  --fluid-leading-max-ratio: 1.2;
+
+  line-height: clamp(
+    var(--fluid-leading-min, calc(var(--fluid-leading-base) * var(--fluid-leading-min-ratio))),
+    var(--fluid-leading-base),
+    var(--fluid-leading-max, calc(var(--fluid-leading-base) * var(--fluid-leading-max-ratio)))
   );
 }
 
@@ -97,20 +151,20 @@
   }
 }
 
-/* 
+/*
  * Height con fluid responsive a container
  */
 @utility h-fluid-cq-* {
   --fluid-base: --value([*]);
   --fluid-cq-min-ratio: 0.85;
   --fluid-cq-max-ratio: 1.15;
-  
+
   height: clamp(
     calc(var(--fluid-base) * var(--fluid-cq-min-ratio)),
     var(--fluid-base),
     calc(var(--fluid-base) * var(--fluid-cq-max-ratio))
   );
-  
+
   @container (min-width: 400px) {
     height: clamp(
       calc(var(--fluid-base) * var(--fluid-cq-min-ratio)),
@@ -118,9 +172,71 @@
       calc(var(--fluid-base) * var(--fluid-cq-max-ratio))
     );
   }
-  
+
   @container (min-width: 800px) {
     height: var(--fluid-override, --value([*]));
+  }
+}
+
+/*
+ * Font-size con fluid responsive a container
+ * Se adapta según el tamaño del contenedor padre
+ * - Contenedor < 400px: más compresión (85% - 115%)
+ * - Contenedor 400px-800px: balance (90% - 130%)
+ * - Contenedor > 800px: valor fijo
+ */
+@utility text-fluid-cq-* {
+  --fluid-text-base: --value([*]);
+  --fluid-text-cq-min-ratio: 0.85;
+  --fluid-text-cq-max-ratio: 1.15;
+
+  font-size: clamp(
+    var(--fluid-text-min, calc(var(--fluid-text-base) * var(--fluid-text-cq-min-ratio))),
+    var(--fluid-text-base),
+    var(--fluid-text-max, calc(var(--fluid-text-base) * var(--fluid-text-cq-max-ratio)))
+  );
+
+  @container (min-width: 400px) {
+    font-size: clamp(
+      var(--fluid-text-min, calc(var(--fluid-text-base) * 0.9)),
+      var(--fluid-text-base),
+      var(--fluid-text-max, calc(var(--fluid-text-base) * 1.3))
+    );
+  }
+
+  @container (min-width: 800px) {
+    font-size: var(--fluid-text-override, --value([*]));
+  }
+}
+
+/*
+ * Line-height con fluid responsive a container
+ * Se adapta según el tamaño del contenedor padre
+ * - Contenedor < 400px: más compresión (85% - 115%)
+ * - Contenedor 400px-800px: balance (90% - 130%)
+ * - Contenedor > 800px: valor fijo
+ */
+@utility leading-fluid-cq-* {
+  --fluid-leading-base: --value([*]);
+  --fluid-leading-cq-min-ratio: 0.85;
+  --fluid-leading-cq-max-ratio: 1.15;
+
+  line-height: clamp(
+    var(--fluid-leading-min, calc(var(--fluid-leading-base) * var(--fluid-leading-cq-min-ratio))),
+    var(--fluid-leading-base),
+    var(--fluid-leading-max, calc(var(--fluid-leading-base) * var(--fluid-leading-cq-max-ratio)))
+  );
+
+  @container (min-width: 400px) {
+    line-height: clamp(
+      var(--fluid-leading-min, calc(var(--fluid-leading-base) * 0.9)),
+      var(--fluid-leading-base),
+      var(--fluid-leading-max, calc(var(--fluid-leading-base) * 1.3))
+    );
+  }
+
+  @container (min-width: 800px) {
+    line-height: var(--fluid-leading-override, --value([*]));
   }
 }
 
@@ -358,4 +474,236 @@ Usa *-cq cuando:
   - El elemento está dentro de un layout modular
   - Necesitas que responda a su contexto local
   - Trabajas con sidebars, grids, o componentes anidados
+
+
+=== FLUID PARA FONT-SIZE (viewport-based) ===
+
+BÁSICO (calcula automáticamente):
+<h1 class="text-fluid-[32px]">
+  → font-size: clamp(28.16px, 32px, 38.4px)
+</h1>
+
+CON MIN PERSONALIZADO:
+<h1 class="fluid-text-min-[24px] text-fluid-[32px]">
+  → font-size: clamp(24px, 32px, 38.4px)
+</h1>
+
+CON MAX PERSONALIZADO:
+<p class="fluid-text-max-[20px] text-fluid-[16px]">
+  → font-size: clamp(14.08px, 16px, 20px)
+</p>
+
+CON AMBOS PERSONALIZADOS:
+<h2 class="fluid-text-min-[18px] fluid-text-max-[32px] text-fluid-[24px]">
+  → font-size: clamp(18px, 24px, 32px)
+</h2>
+
+ESCALA TIPOGRÁFICA FLUIDA:
+<div class="fluid-text-min-[14px] fluid-text-max-[72px]">
+  <h1 class="text-fluid-[48px]">Título principal</h1>
+  <h2 class="text-fluid-[32px]">Subtítulo</h2>
+  <p class="text-fluid-[16px]">Texto del cuerpo</p>
+  <!-- Todos respetan los mismos límites min/max -->
+</div>
+
+
+=== FONT-SIZE CON CONTAINER QUERIES ===
+
+BÁSICO (necesitas declarar el contenedor):
+<article class="@container">
+  <h1 class="text-fluid-cq-[32px]">
+    El tamaño se adapta al ancho del contenedor
+  </h1>
+</article>
+
+SIDEBAR CON TIPOGRAFÍA ADAPTABLE:
+<div class="@container flex">
+  <aside class="w-fluid-cq-[250px] @container">
+    <h3 class="text-fluid-cq-[20px]">Título sidebar</h3>
+    <p class="text-fluid-cq-[14px]">Texto que se adapta al sidebar</p>
+  </aside>
+  <main class="flex-1">...</main>
+</div>
+
+CARDS CON TEXTO RESPONSIVE:
+<div class="@container grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+  <div class="@container">
+    <h3 class="text-fluid-cq-[24px]">Título</h3>
+    <p class="text-fluid-cq-[16px]">Texto que responde al tamaño de la card</p>
+  </div>
+</div>
+
+CON LÍMITES PERSONALIZADOS:
+<section class="@container fluid-text-min-[12px] fluid-text-max-[48px]">
+  <h1 class="text-fluid-cq-[36px]">Título principal</h1>
+  <p class="text-fluid-cq-[16px]">Párrafo con límites controlados</p>
+</section>
+
+TAMAÑO FIJO EN CONTENEDORES GRANDES:
+<div class="@container" style="--fluid-text-override: 24px">
+  <h2 class="text-fluid-cq-[20px]">
+    En contenedores >800px usará 24px fijo
+  </h2>
+</div>
+
+
+=== COMPARACIÓN FONT-SIZE ===
+
+text-fluid-*    → font-size fluido (viewport-based)
+text-fluid-cq-* → font-size fluido (container-based)
+
+Variables:
+--fluid-text-min / --fluid-text-max → Para personalizar límites
+
+Usa text-fluid cuando:
+  - Necesitas tipografía responsive al viewport
+  - Quieres escalado automático según el tamaño de pantalla
+  - No tienes un contenedor específico
+
+Usa text-fluid-cq cuando:
+  - El texto está dentro de componentes modulares
+  - Cards, sidebars, o paneles que cambian de tamaño
+  - Necesitas que el texto responda a su contexto local
+  - Trabajas con layouts que usan container queries
+
+
+=== FLUID PARA LINE-HEIGHT (viewport-based) ===
+
+BÁSICO (calcula automáticamente):
+<p class="leading-fluid-[24px]">
+  → line-height: clamp(21.12px, 24px, 28.8px)
+</p>
+
+CON MIN PERSONALIZADO:
+<p class="fluid-leading-min-[20px] leading-fluid-[24px]">
+  → line-height: clamp(20px, 24px, 28.8px)
+</p>
+
+CON MAX PERSONALIZADO:
+<p class="fluid-leading-max-[30px] leading-fluid-[24px]">
+  → line-height: clamp(21.12px, 24px, 30px)
+</p>
+
+CON AMBOS PERSONALIZADOS:
+<h2 class="fluid-leading-min-[28px] fluid-leading-max-[48px] leading-fluid-[36px]">
+  → line-height: clamp(28px, 36px, 48px)
+</h2>
+
+COMBINANDO FONT-SIZE Y LINE-HEIGHT FLUIDOS:
+<div class="fluid-text-min-[14px] fluid-text-max-[72px] fluid-leading-min-[20px] fluid-leading-max-[96px]">
+  <h1 class="text-fluid-[48px] leading-fluid-[56px]">Título</h1>
+  <p class="text-fluid-[16px] leading-fluid-[24px]">Texto con tipografía completamente fluida</p>
+</div>
+
+VALORES RELATIVOS (sin unidades):
+<p class="leading-fluid-[1.5]">
+  → line-height: clamp(1.32, 1.5, 1.8)
+</p>
+
+
+=== LINE-HEIGHT CON CONTAINER QUERIES ===
+
+BÁSICO (necesitas declarar el contenedor):
+<article class="@container">
+  <p class="leading-fluid-cq-[24px]">
+    El line-height se adapta al ancho del contenedor
+  </p>
+</article>
+
+TIPOGRAFÍA COMPLETA ADAPTABLE:
+<div class="@container">
+  <h1 class="text-fluid-cq-[32px] leading-fluid-cq-[40px]">
+    Título con font-size y line-height adaptativos
+  </h1>
+  <p class="text-fluid-cq-[16px] leading-fluid-cq-[24px]">
+    Párrafo que mantiene proporciones óptimas en cualquier tamaño
+  </p>
+</div>
+
+SIDEBAR CON INTERLINEADO ADAPTABLE:
+<div class="@container flex">
+  <aside class="w-fluid-cq-[250px] @container">
+    <p class="text-fluid-cq-[14px] leading-fluid-cq-[20px]">
+      Texto con interlineado que se adapta al sidebar
+    </p>
+  </aside>
+  <main class="flex-1">...</main>
+</div>
+
+CARDS CON TIPOGRAFÍA COMPLETA:
+<div class="@container grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+  <div class="@container">
+    <h3 class="text-fluid-cq-[20px] leading-fluid-cq-[28px]">Título</h3>
+    <p class="text-fluid-cq-[14px] leading-fluid-cq-[20px]">
+      Texto con proporciones perfectas en cualquier tamaño de card
+    </p>
+  </div>
+</div>
+
+CON LÍMITES PERSONALIZADOS:
+<section class="@container fluid-leading-min-[18px] fluid-leading-max-[64px]">
+  <h1 class="leading-fluid-cq-[48px]">Título</h1>
+  <p class="leading-fluid-cq-[24px]">Párrafo con límites controlados</p>
+</section>
+
+INTERLINEADO FIJO EN CONTENEDORES GRANDES:
+<div class="@container" style="--fluid-leading-override: 32px">
+  <p class="leading-fluid-cq-[24px]">
+    En contenedores >800px usará 32px fijo
+  </p>
+</div>
+
+
+=== COMPARACIÓN LINE-HEIGHT ===
+
+leading-fluid-*    → line-height fluido (viewport-based)
+leading-fluid-cq-* → line-height fluido (container-based)
+
+Variables:
+--fluid-leading-min / --fluid-leading-max → Para personalizar límites
+
+Usa leading-fluid cuando:
+  - Necesitas interlineado responsive al viewport
+  - Quieres que el espaciado entre líneas se adapte automáticamente
+  - Trabajas con escalas tipográficas fluidas
+
+Usa leading-fluid-cq cuando:
+  - El texto está dentro de componentes modulares
+  - Necesitas mantener proporciones óptimas en diferentes contextos
+  - Combinas con text-fluid-cq para tipografía completamente adaptable
+  - Trabajas con layouts que usan container queries
+
+
+=== MEJORES PRÁCTICAS TIPOGRAFÍA FLUIDA ===
+
+ESCALA TIPOGRÁFICA COMPLETA:
+<div class="fluid-text-min-[12px] fluid-text-max-[96px] fluid-leading-min-[16px] fluid-leading-max-[112px]">
+  <h1 class="text-fluid-[64px] leading-fluid-[72px]">Display</h1>
+  <h2 class="text-fluid-[48px] leading-fluid-[56px]">Heading 1</h2>
+  <h3 class="text-fluid-[32px] leading-fluid-[40px]">Heading 2</h3>
+  <h4 class="text-fluid-[24px] leading-fluid-[32px]">Heading 3</h4>
+  <p class="text-fluid-[16px] leading-fluid-[24px]">Body text</p>
+  <small class="text-fluid-[14px] leading-fluid-[20px]">Small text</small>
+</div>
+
+COMPONENTE CON TIPOGRAFÍA ADAPTABLE:
+<article class="@container max-w-fluid-cq-[800px]">
+  <header class="@container">
+    <h1 class="text-fluid-cq-[36px] leading-fluid-cq-[44px]">Título del artículo</h1>
+    <p class="text-fluid-cq-[14px] leading-fluid-cq-[20px]">Metadata</p>
+  </header>
+  <div class="@container">
+    <p class="text-fluid-cq-[18px] leading-fluid-cq-[28px]">
+      Contenido del artículo con tipografía que se adapta perfectamente
+      al ancho del contenedor, manteniendo siempre la legibilidad óptima.
+    </p>
+  </div>
+</article>
+
+PROPORCIONES PERSONALIZADAS:
+<div class="@container" style="--fluid-text-min: 14px; --fluid-text-max: 20px; --fluid-leading-min: 20px; --fluid-leading-max: 32px">
+  <p class="text-fluid-cq-[16px] leading-fluid-cq-[24px]">
+    Control total sobre los límites de tamaño y interlineado
+  </p>
+</div>
 */
